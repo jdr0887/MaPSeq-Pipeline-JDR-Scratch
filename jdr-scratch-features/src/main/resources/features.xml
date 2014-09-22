@@ -1,4 +1,4 @@
-<features name="mapseq-pipeline-jdr-scratch-${project.version}">
+<features name="mapseq-pipeline-jdr-scratch-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0">
 
   <feature name="mapseq-pipeline-jdr-scratch" version="${project.version}" resolver="(obr)">
     <bundle>mvn:edu.unc.mapseq.pipelines.jdr-scratch/jdr-scratch-workflow/${project.version}</bundle>
