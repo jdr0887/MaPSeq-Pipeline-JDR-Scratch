@@ -6,7 +6,7 @@
 
   <reference id="JDRScratchWorkflowBeanService" interface="edu.unc.mapseq.workflow.WorkflowBeanService" component-name="JDRScratchWorkflowBeanService" />
 
-  <bean id="JDRScratchWorkflowMessageListener" class="edu.unc.mapseq.messaging.jdr.scratch.JDRScratchWorkflowMessagingListener">
+  <bean id="JDRScratchWorkflowMessageListener" class="edu.unc.mapseq.messaging.jdr.scratch.JDRScratchWorkflowMessageListener">
     <property name="workflowBeanService" ref="JDRScratchWorkflowBeanService" />
   </bean>
 
