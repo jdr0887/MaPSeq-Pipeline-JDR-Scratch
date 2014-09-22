@@ -1,6 +1,5 @@
 package edu.unc.mapseq.messaging.jdr.scratch;
 
-
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
@@ -131,6 +130,15 @@ public class JDRScratchWorkflowMessageListener extends AbstractMessageListener {
                 logger.warn("WorkflowRun is null...not running anything");
                 throw new WorkflowException("WorkflowRun is null...not running anything");
             }
+            
+            if (flowcell != null) {
+                workflowRun.getFlowcells().add(flowcell);
+            }
+            
+            if (sampleSet != null && !sampleSet.isEmpty()) {
+                workflowRun.getSamples().addAll(sampleSet);
+            }
+
         } catch (WorkflowException e1) {
             logger.error(e1.getMessage(), e1);
             return;
