@@ -4,3 +4,4 @@
 target
 tmp
 var
+src/main/resources/edu/unc/mapseq/workflow/jdr/scratch/workflow.properties
