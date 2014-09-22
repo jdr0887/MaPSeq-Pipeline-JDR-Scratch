@@ -15,7 +15,7 @@ public class MessagingTest {
     @Test
     public void testQueue() {
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(String.format("nio://%s:61616",
-                "localhost"));
+                "152.19.198.147"));
         Connection connection = null;
         Session session = null;
         try {
@@ -24,11 +24,8 @@ public class MessagingTest {
             Destination destination = session.createQueue("queue/jdr.scratch");
             MessageProducer producer = session.createProducer(destination);
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
-
-            String format = "{\"account_name\":\"%s\",\"entities\":[{\"entity_type\":\"WorkflowRun\",\"name\":\"jdr-test-%d\"}]}";
-            for (int i = 0; i < 10; ++i) {
-                producer.send(session.createTextMessage(String.format(format, System.getProperty("user.name"), i)));
-            }
+            producer.send(session
+                    .createTextMessage("{\"entities\":[{\"entityType\":\"Sample\",\"id\":\"591832\"},{\"entityType\":\"WorkflowRun\",\"name\":\"jdr-scratch-test-591832\"}]}"));
         } catch (JMSException e) {
             e.printStackTrace();
         } finally {
