@@ -88,9 +88,9 @@ public class JDRScratchWorkflowMessageListener extends AbstractMessageListener {
 
         Workflow workflow = null;
         try {
-            List<Workflow> workflowList = workflowDAO.findByName("NCGenesAlignment");
+            List<Workflow> workflowList = workflowDAO.findByName("JDRScratch");
             if (workflowList == null || (workflowList != null && workflowList.isEmpty())) {
-                logger.error("No Workflow Found: {}", "NCGenesAlignment");
+                logger.error("No Workflow Found: {}", "JDRScratch");
                 return;
             }
             workflow = workflowList.get(0);
