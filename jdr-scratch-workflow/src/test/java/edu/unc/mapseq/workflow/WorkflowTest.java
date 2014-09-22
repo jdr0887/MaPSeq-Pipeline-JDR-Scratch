@@ -8,7 +8,6 @@ import org.jgrapht.DirectedGraph;
 import org.jgrapht.ext.VertexNameProvider;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.junit.Test;
-
 import org.renci.jlrm.condor.CondorJob;
 import org.renci.jlrm.condor.CondorJobBuilder;
 import org.renci.jlrm.condor.CondorJobEdge;
@@ -16,7 +15,6 @@ import org.renci.jlrm.condor.ext.CondorDOTExporter;
 
 import edu.unc.mapseq.module.core.CatCLI;
 import edu.unc.mapseq.module.core.EchoCLI;
-import edu.unc.mapseq.workflow.impl.WorkflowJobFactory;
 
 public class WorkflowTest {
 
@@ -28,21 +26,22 @@ public class WorkflowTest {
 
         int count = 0;
 
-
-
         // new job
-        CondorJob helloJob = new CondorJobBuilder().name(String.format("%s_%d", EchoCLI.class.getSimpleName(), ++count)).addArgument(
-                EchoCLI.GREETING, "Hello").addArgument(EchoCLI.OUTPUT, "hello.txt").build();
+        CondorJob helloJob = new CondorJobBuilder()
+                .name(String.format("%s_%d", EchoCLI.class.getSimpleName(), ++count))
+                .addArgument(EchoCLI.GREETING, "Hello").addArgument(EchoCLI.OUTPUT, "hello.txt").build();
         graph.addVertex(helloJob);
 
         // new job
-        CondorJob worldJob = new CondorJobBuilder().name(String.format("%s_%d", EchoCLI.class.getSimpleName(), ++count)).addArgument(
-                EchoCLI.GREETING, "World").addArgument(EchoCLI.OUTPUT, "world.txt").build();
+        CondorJob worldJob = new CondorJobBuilder()
+                .name(String.format("%s_%d", EchoCLI.class.getSimpleName(), ++count))
+                .addArgument(EchoCLI.GREETING, "World").addArgument(EchoCLI.OUTPUT, "world.txt").build();
         graph.addVertex(worldJob);
 
         // new job
-        CondorJob catJob = new CondorJobBuilder().name(String.format("%s_%d", CatCLI.class.getSimpleName(), ++count)).addArgument(
-                CatCLI.FILES, "hello.txt").addArgument(CatCLI.FILES, "world.txt").addArgument(CatCLI.OUTPUT, "final.txt").build();
+        CondorJob catJob = new CondorJobBuilder().name(String.format("%s_%d", CatCLI.class.getSimpleName(), ++count))
+                .addArgument(CatCLI.FILES, "hello.txt").addArgument(CatCLI.FILES, "world.txt")
+                .addArgument(CatCLI.OUTPUT, "final.txt").build();
         graph.addVertex(catJob);
         graph.addEdge(helloJob, catJob);
         graph.addEdge(worldJob, catJob);
