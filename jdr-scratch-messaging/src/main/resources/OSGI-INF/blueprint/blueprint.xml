@@ -4,13 +4,16 @@
 
   <reference id="connectionFactory" interface="javax.jms.ConnectionFactory" />
 
-  <reference id="JDRScratchWorkflowBeanService" interface="edu.unc.mapseq.workflow.WorkflowBeanService"
-    component-name="JDRScratchWorkflowBeanService" />
+  <reference id="JDRScratchWorkflowBeanService" interface="edu.unc.mapseq.workflow.WorkflowBeanService" component-name="JDRScratchWorkflowBeanService" />
+
+  <bean id="JDRScratchWorkflowMessageListener" class="edu.unc.mapseq.messaging.jdr.scratch.JDRScratchWorkflowMessagingListener">
+    <property name="workflowBeanService" ref="JDRScratchWorkflowBeanService" />
+  </bean>
 
   <bean id="JDRScratchWorkflowMessageService" class="edu.unc.mapseq.messaging.jdr.scratch.JDRScratchWorkflowMessageService"
     init-method="start" destroy-method="stop" activation="eager">
     <property name="connectionFactory" ref="connectionFactory" />
-    <property name="workflowBeanService" ref="JDRScratchWorkflowBeanService" />
+    <property name="messageListener" ref="JDRScratchWorkflowMessageListener" />
     <property name="destinationName" value="queue/jdr.scratch" />
   </bean>
 
