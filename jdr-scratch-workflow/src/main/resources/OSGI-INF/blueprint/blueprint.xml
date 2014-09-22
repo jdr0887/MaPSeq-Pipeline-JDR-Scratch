@@ -18,7 +18,7 @@
   <reference id="sampleDAO" interface="edu.unc.mapseq.dao.SampleDAO" />
   <reference id="jobDAO" interface="edu.unc.mapseq.dao.JobDAO" />
   <reference id="studyDAO" interface="edu.unc.mapseq.dao.StudyDAO" />
-  <reference id="flowcellDAO" interface="edu.unc.mapseq.dao.FlowcellnDAO" />
+  <reference id="flowcellDAO" interface="edu.unc.mapseq.dao.FlowcellDAO" />
   <reference id="workflowDAO" interface="edu.unc.mapseq.dao.WorkflowDAO" />
   <reference id="workflowRunDAO" interface="edu.unc.mapseq.dao.WorkflowRunDAO" />
   <reference id="workflowRunAttemptDAO" interface="edu.unc.mapseq.dao.WorkflowRunAttemptDAO" />
