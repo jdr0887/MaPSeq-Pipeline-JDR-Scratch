@@ -8,11 +8,11 @@
     </cm:default-properties>
   </cm:property-placeholder>
 
-  <reference id="JDRScratchWorkflowBeanService" interface="edu.unc.mapseq.pipeline.WorkflowBeanService"
+  <reference id="JDRScratchWorkflowBeanService" interface="edu.unc.mapseq.workflow.WorkflowBeanService"
     component-name="JDRScratchWorkflowBeanService" />
 
   <bean id="task" class="edu.unc.mapseq.executor.jdr.scratch.JDRScratchWorkflowExecutorTask">
-    <property name="pipelineBeanService" ref="JDRScratchWorkflowBeanService" />
+    <property name="workflowBeanService" ref="JDRScratchWorkflowBeanService" />
   </bean>
 
   <bean id="JDRScratchWorkflowExecutorService" class="edu.unc.mapseq.executor.jdr.scratch.JDRScratchWorkflowExecutorService"
