@@ -148,6 +148,7 @@ public class JDRScratchWorkflowMessageListener extends AbstractMessageListener {
             if (!sampleSet.isEmpty()) {
                 workflowRun.setSamples(sampleSet);
             }
+            workflowRunDAO.save(workflowRun);
 
             WorkflowRunAttempt attempt = new WorkflowRunAttempt();
             attempt.setStatus(WorkflowRunAttemptStatusType.PENDING);
