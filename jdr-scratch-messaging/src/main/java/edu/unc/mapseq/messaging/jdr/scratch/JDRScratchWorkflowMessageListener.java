@@ -81,7 +81,7 @@ public class JDRScratchWorkflowMessageListener extends AbstractMessageListener {
         WorkflowRunDAO workflowRunDAO = daoBean.getWorkflowRunDAO();
         WorkflowRunAttemptDAO workflowRunAttemptDAO = daoBean.getWorkflowRunAttemptDAO();
 
-        Flowcell flowcell = null;
+        Set<Flowcell> flowcellSet = new HashSet<Flowcell>();
         Set<Sample> sampleSet = new HashSet<Sample>();
         WorkflowRun workflowRun = null;
 
@@ -102,7 +102,8 @@ public class JDRScratchWorkflowMessageListener extends AbstractMessageListener {
             for (WorkflowEntity entity : workflowMessage.getEntities()) {
                 if (StringUtils.isNotEmpty(entity.getEntityType())
                         && Flowcell.class.getSimpleName().equals(entity.getEntityType())) {
-                    flowcell = getFlowcell(entity);
+                    Flowcell flowcell = getFlowcell(entity);
+                    flowcellSet.add(flowcell);
                 }
             }
 
@@ -114,7 +115,7 @@ public class JDRScratchWorkflowMessageListener extends AbstractMessageListener {
                 }
             }
 
-            if (flowcell == null && sampleSet.isEmpty()) {
+            if (flowcellSet.isEmpty() && sampleSet.isEmpty()) {
                 logger.warn("Flowcell & sampleSet are both empty...not running anything");
                 throw new WorkflowException("Flowcell & sampleSet are both empty...not running anything");
             }
@@ -130,13 +131,13 @@ public class JDRScratchWorkflowMessageListener extends AbstractMessageListener {
                 logger.warn("WorkflowRun is null...not running anything");
                 throw new WorkflowException("WorkflowRun is null...not running anything");
             }
-            
-            if (flowcell != null) {
-                workflowRun.getFlowcells().add(flowcell);
+
+            if (!flowcellSet.isEmpty()) {
+                workflowRun.setFlowcells(flowcellSet);
             }
-            
-            if (sampleSet != null && !sampleSet.isEmpty()) {
-                workflowRun.getSamples().addAll(sampleSet);
+
+            if (!sampleSet.isEmpty()) {
+                workflowRun.setSamples(sampleSet);
             }
 
         } catch (WorkflowException e1) {
