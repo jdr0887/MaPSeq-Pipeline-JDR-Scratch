@@ -132,6 +132,14 @@ public class JDRScratchWorkflowMessageListener extends AbstractMessageListener {
                 throw new WorkflowException("WorkflowRun is null...not running anything");
             }
 
+            if (!flowcellSet.isEmpty()) {
+                workflowRun.setFlowcells(flowcellSet);
+            }
+
+            if (!sampleSet.isEmpty()) {
+                workflowRun.setSamples(sampleSet);
+            }
+
         } catch (WorkflowException e1) {
             logger.error(e1.getMessage(), e1);
             return;
@@ -140,15 +148,6 @@ public class JDRScratchWorkflowMessageListener extends AbstractMessageListener {
         try {
             Long workflowRunId = workflowRunDAO.save(workflowRun);
             workflowRun.setId(workflowRunId);
-
-            if (!flowcellSet.isEmpty()) {
-                workflowRun.setFlowcells(flowcellSet);
-            }
-
-            if (!sampleSet.isEmpty()) {
-                workflowRun.setSamples(sampleSet);
-            }
-            workflowRunDAO.save(workflowRun);
 
             WorkflowRunAttempt attempt = new WorkflowRunAttempt();
             attempt.setStatus(WorkflowRunAttemptStatusType.PENDING);
