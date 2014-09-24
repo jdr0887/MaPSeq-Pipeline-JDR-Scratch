@@ -78,7 +78,7 @@ public class JDRScratchRunWorkflowAction extends AbstractAction {
 
             sw.flush();
             sw.close();
-            
+
             producer.send(session.createTextMessage(sw.toString()));
 
         } catch (JMSException | IOException e) {
@@ -94,7 +94,7 @@ public class JDRScratchRunWorkflowAction extends AbstractAction {
 
         return null;
     }
-    
+
     public Long getSampleId() {
         return sampleId;
     }

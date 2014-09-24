@@ -44,7 +44,8 @@ public class JDRScratchWorkflowExecutorTask extends TimerTask {
                 threadPoolExecutor.getCompletedTaskCount()));
 
         WorkflowDAO workflowDAO = getWorkflowBeanService().getMaPSeqDAOBean().getWorkflowDAO();
-        WorkflowRunAttemptDAO workflowRunAttemptDAO = getWorkflowBeanService().getMaPSeqDAOBean().getWorkflowRunAttemptDAO();
+        WorkflowRunAttemptDAO workflowRunAttemptDAO = getWorkflowBeanService().getMaPSeqDAOBean()
+                .getWorkflowRunAttemptDAO();
 
         try {
 
