@@ -3,13 +3,13 @@
   <parent>
     <groupId>edu.unc.mapseq.pipelines</groupId>
     <artifactId>jdr-scratch</artifactId>
-    <version>0.0.16</version>
+    <version>0.0.17-SNAPSHOT</version>
   </parent>
   <name>MaPSeq :: Pipelines :: JDR Scratch :: Features</name>
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.unc.mapseq.pipelines.jdr-scratch</groupId>
   <artifactId>jdr-scratch-features</artifactId>
-  <version>0.0.16</version>
+  <version>0.0.17-SNAPSHOT</version>
   <packaging>pom</packaging>
   <build>
     <plugins>
