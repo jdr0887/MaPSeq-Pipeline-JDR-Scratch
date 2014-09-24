@@ -82,7 +82,6 @@ public class JDRScratchWorkflow extends AbstractSampleWorkflow {
 
             List<File> readPairList = WorkflowUtil.getReadPairList(sample.getFileDatas(), flowcell.getName(),
                     sample.getLaneIndex());
-            logger.info("fileList = {}", readPairList.size());
 
             if (readPairList.size() != 2) {
                 throw new WorkflowException("ReadPairList is not 2");
