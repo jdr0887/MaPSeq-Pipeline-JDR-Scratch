@@ -3,13 +3,13 @@
   <parent>
     <groupId>edu.unc.mapseq.pipelines</groupId>
     <artifactId>jdr-scratch</artifactId>
-    <version>0.0.23</version>
+    <version>0.0.24-SNAPSHOT</version>
   </parent>
   <name>MaPSeq :: Pipelines :: JDR Scratch :: Executor</name>
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.unc.mapseq.pipelines.jdr-scratch</groupId>
   <artifactId>jdr-scratch-executor</artifactId>
-  <version>0.0.23</version>
+  <version>0.0.24-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <dependencies>
     <dependency>
