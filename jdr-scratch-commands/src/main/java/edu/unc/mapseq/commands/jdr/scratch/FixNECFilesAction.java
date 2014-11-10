@@ -83,71 +83,16 @@ public class FixNECFilesAction extends AbstractAction {
                     necIDCheckOutputDirectory.mkdirs();
                 }
 
-                Set<FileData> toRemove = new HashSet<FileData>();
-
                 // work through managed files first
                 for (FileData fd : sampleFileDatas) {
 
                     File srcFile = new File(fd.getPath(), fd.getName());
 
-                    if (!srcFile.exists()) {
-                        logger.error("file doesn't exist: {}", srcFile.getAbsolutePath());
-                        toRemove.add(fd);
-                        continue;
-                    }
-
                     if (fd.getPath().equals(necOutputDirectory.getAbsolutePath())) {
                         if (fd.getName().endsWith(".fixed-rg.bam") || fd.getName().endsWith(".fixed-rg.bai")
                                 || fd.getName().endsWith(".fastqc.zip") || fd.getName().endsWith(".vcf.hdr")) {
-                            File destFile = new File(necAlignmentOutputDirectory, srcFile.getName());
-                            if (destFile.exists() && destFile.length() == 0) {
-                                destFile.delete();
-                            }
-                            if (destFile.exists() && destFile.length() > 0) {
-                                if (destFile.lastModified() > srcFile.lastModified()) {
-                                    srcFile.delete();
-                                } else {
-                                    destFile.delete();
-                                    FileUtils.moveFile(srcFile, destFile);
-                                }
-                                continue;
-                            }
-                            FileUtils.moveFile(srcFile, destFile);
-                            fd.setPath(necAlignmentOutputDirectory.getAbsolutePath());
-                            fileDataDAO.save(fd);
-                        }
-                    }
-
-                    if (fd.getPath().equals(necOutputDirectory.getAbsolutePath())) {
-                        if (fd.getName().contains(".fixed-rg.deduped.")) {
-                            if (fd.getName().endsWith("ec.tsv") || fd.getName().endsWith(".fvcf")
-                                    || fd.getName().endsWith(".sub.vcf")) {
-                                continue;
-                            }
-                            File destFile = new File(necVariantCallingOutputDirectory, srcFile.getName());
-                            if (destFile.exists() && destFile.length() == 0) {
-                                destFile.delete();
-                            }
-                            if (destFile.exists() && destFile.length() > 0) {
-                                if (destFile.lastModified() > srcFile.lastModified()) {
-                                    srcFile.delete();
-                                } else {
-                                    destFile.delete();
-                                    FileUtils.moveFile(srcFile, destFile);
-                                }
-                                continue;
-                            }
-                            FileUtils.moveFile(srcFile, destFile);
-                            fd.setPath(necVariantCallingOutputDirectory.getAbsolutePath());
-                            fileDataDAO.save(fd);
-                        }
-                    }
-
-                    if (fd.getPath().equals(necOutputDirectory.getAbsolutePath())) {
-                        if (fd.getName().contains(".fixed-rg.deduped.")) {
-                            if (fd.getName().endsWith("ec.tsv") || fd.getName().endsWith(".fvcf")
-                                    || fd.getName().endsWith(".sub.vcf")) {
-                                File destFile = new File(necIDCheckOutputDirectory, srcFile.getName());
+                            if (srcFile.exists()) {
+                                File destFile = new File(necAlignmentOutputDirectory, srcFile.getName());
                                 if (destFile.exists() && destFile.length() == 0) {
                                     destFile.delete();
                                 }
@@ -161,19 +106,66 @@ public class FixNECFilesAction extends AbstractAction {
                                     continue;
                                 }
                                 FileUtils.moveFile(srcFile, destFile);
+                            }
+                            fd.setPath(necAlignmentOutputDirectory.getAbsolutePath());
+                            fileDataDAO.save(fd);
+                        }
+                    }
+
+                    if (fd.getPath().equals(necOutputDirectory.getAbsolutePath())) {
+                        if (fd.getName().contains(".fixed-rg.deduped.")) {
+                            if (fd.getName().endsWith("ec.tsv") || fd.getName().endsWith(".fvcf")
+                                    || fd.getName().endsWith(".sub.vcf")) {
+                                continue;
+                            }
+                            if (srcFile.exists()) {
+                                File destFile = new File(necVariantCallingOutputDirectory, srcFile.getName());
+                                if (destFile.exists() && destFile.length() == 0) {
+                                    destFile.delete();
+                                }
+                                if (destFile.exists() && destFile.length() > 0) {
+                                    if (destFile.lastModified() > srcFile.lastModified()) {
+                                        srcFile.delete();
+                                    } else {
+                                        destFile.delete();
+                                        FileUtils.moveFile(srcFile, destFile);
+                                    }
+                                    continue;
+                                }
+                                FileUtils.moveFile(srcFile, destFile);
+                            }
+
+                            fd.setPath(necVariantCallingOutputDirectory.getAbsolutePath());
+                            fileDataDAO.save(fd);
+                        }
+                    }
+
+                    if (fd.getPath().equals(necOutputDirectory.getAbsolutePath())) {
+                        if (fd.getName().contains(".fixed-rg.deduped.")) {
+                            if (fd.getName().endsWith("ec.tsv") || fd.getName().endsWith(".fvcf")
+                                    || fd.getName().endsWith(".sub.vcf")) {
+                                if (srcFile.exists()) {
+                                    File destFile = new File(necIDCheckOutputDirectory, srcFile.getName());
+                                    if (destFile.exists() && destFile.length() == 0) {
+                                        destFile.delete();
+                                    }
+                                    if (destFile.exists() && destFile.length() > 0) {
+                                        if (destFile.lastModified() > srcFile.lastModified()) {
+                                            srcFile.delete();
+                                        } else {
+                                            destFile.delete();
+                                            FileUtils.moveFile(srcFile, destFile);
+                                        }
+                                        continue;
+                                    }
+                                    FileUtils.moveFile(srcFile, destFile);
+                                }
                                 fd.setPath(necIDCheckOutputDirectory.getAbsolutePath());
                                 fileDataDAO.save(fd);
                             }
                         }
                     }
 
-                }
-
-                if (toRemove != null && !toRemove.isEmpty()) {
-                    for (FileData fd : toRemove) {
-                        sampleFileDatas.remove(fd);
-                    }
-                    sampleDAO.save(sample);
                 }
 
                 // the rest are unmanaged, so no need to update FileData paths
@@ -266,6 +258,23 @@ public class FixNECFilesAction extends AbstractAction {
                             FileUtils.moveFile(srcFile, destFile);
                         }
                     }
+                }
+
+                Set<FileData> toRemove = new HashSet<FileData>();
+                for (FileData fd : sampleFileDatas) {
+                    File srcFile = new File(fd.getPath(), fd.getName());
+                    if (!srcFile.exists()) {
+                        logger.error("file doesn't exist: {}", srcFile.getAbsolutePath());
+                        toRemove.add(fd);
+                        continue;
+                    }
+                }
+
+                if (toRemove != null && !toRemove.isEmpty()) {
+                    for (FileData fd : toRemove) {
+                        sampleFileDatas.remove(fd);
+                    }
+                    sampleDAO.save(sample);
                 }
 
             } catch (MaPSeqDAOException | IOException e) {
