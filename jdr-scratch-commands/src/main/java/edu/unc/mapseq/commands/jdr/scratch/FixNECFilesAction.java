@@ -169,80 +169,12 @@ public class FixNECFilesAction extends AbstractAction {
                 }
 
                 // the rest are unmanaged, so no need to update FileData paths
+                if (necOutputDirectory != null && necOutputDirectory.listFiles().length > 0) {
 
-                for (File srcFile : necOutputDirectory.listFiles()) {
-                    if (srcFile.getName().endsWith(".fixed-rg.bam") || srcFile.getName().endsWith(".fixed-rg.bai")
-                            || srcFile.getName().endsWith(".fastqc.zip") || srcFile.getName().endsWith(".vcf.hdr")) {
-                        File destFile = new File(necAlignmentOutputDirectory, srcFile.getName());
-                        if (destFile.exists() && destFile.length() == 0) {
-                            destFile.delete();
-                        }
-                        if (destFile.exists() && destFile.length() > 0) {
-                            if (destFile.lastModified() > srcFile.lastModified()) {
-                                srcFile.delete();
-                            } else {
-                                destFile.delete();
-                                FileUtils.moveFile(srcFile, destFile);
-                            }
-                            continue;
-                        }
-                        FileUtils.moveFile(srcFile, destFile);
-                    }
-                }
-
-                for (File srcFile : necOutputDirectory.listFiles()) {
-                    if (srcFile.getName().contains(".fixed-rg.deduped.")) {
-                        if (srcFile.getName().endsWith("ec.tsv") || srcFile.getName().endsWith(".fvcf")
-                                || srcFile.getName().endsWith(".sub.vcf")) {
-                            continue;
-                        }
-
-                        File destFile = new File(necVariantCallingOutputDirectory, srcFile.getName());
-                        if (destFile.exists() && destFile.length() == 0) {
-                            destFile.delete();
-                        }
-
-                        if (destFile.exists() && destFile.length() > 0) {
-                            if (destFile.lastModified() > srcFile.lastModified()) {
-                                srcFile.delete();
-                            } else {
-                                destFile.delete();
-                                FileUtils.moveFile(srcFile, destFile);
-                            }
-                            continue;
-                        }
-                        FileUtils.moveFile(srcFile, destFile);
-                    }
-                }
-
-                for (File srcFile : necOutputDirectory.listFiles()) {
-                    if (srcFile.getName().contains(".fixed-rg.deduped.")) {
-                        if (srcFile.getName().endsWith("ec.tsv") || srcFile.getName().endsWith(".fvcf")
-                                || srcFile.getName().endsWith(".sub.vcf")) {
-                            continue;
-                        }
-                        File destFile = new File(necVariantCallingOutputDirectory, srcFile.getName());
-                        if (destFile.exists() && destFile.length() == 0) {
-                            destFile.delete();
-                        }
-                        if (destFile.exists() && destFile.length() > 0) {
-                            if (destFile.lastModified() > srcFile.lastModified()) {
-                                srcFile.delete();
-                            } else {
-                                destFile.delete();
-                                FileUtils.moveFile(srcFile, destFile);
-                            }
-                            continue;
-                        }
-                        FileUtils.moveFile(srcFile, destFile);
-                    }
-                }
-
-                for (File srcFile : necOutputDirectory.listFiles()) {
-                    if (srcFile.getName().contains(".fixed-rg.deduped.")) {
-                        if (srcFile.getName().endsWith("ec.tsv") || srcFile.getName().endsWith(".fvcf")
-                                || srcFile.getName().endsWith(".sub.vcf")) {
-                            File destFile = new File(necIDCheckOutputDirectory, srcFile.getName());
+                    for (File srcFile : necOutputDirectory.listFiles()) {
+                        if (srcFile.getName().endsWith(".fixed-rg.bam") || srcFile.getName().endsWith(".fixed-rg.bai")
+                                || srcFile.getName().endsWith(".fastqc.zip") || srcFile.getName().endsWith(".vcf.hdr")) {
+                            File destFile = new File(necAlignmentOutputDirectory, srcFile.getName());
                             if (destFile.exists() && destFile.length() == 0) {
                                 destFile.delete();
                             }
@@ -258,6 +190,77 @@ public class FixNECFilesAction extends AbstractAction {
                             FileUtils.moveFile(srcFile, destFile);
                         }
                     }
+
+                    for (File srcFile : necOutputDirectory.listFiles()) {
+                        if (srcFile.getName().contains(".fixed-rg.deduped.")) {
+                            if (srcFile.getName().endsWith("ec.tsv") || srcFile.getName().endsWith(".fvcf")
+                                    || srcFile.getName().endsWith(".sub.vcf")) {
+                                continue;
+                            }
+
+                            File destFile = new File(necVariantCallingOutputDirectory, srcFile.getName());
+                            if (destFile.exists() && destFile.length() == 0) {
+                                destFile.delete();
+                            }
+
+                            if (destFile.exists() && destFile.length() > 0) {
+                                if (destFile.lastModified() > srcFile.lastModified()) {
+                                    srcFile.delete();
+                                } else {
+                                    destFile.delete();
+                                    FileUtils.moveFile(srcFile, destFile);
+                                }
+                                continue;
+                            }
+                            FileUtils.moveFile(srcFile, destFile);
+                        }
+                    }
+
+                    for (File srcFile : necOutputDirectory.listFiles()) {
+                        if (srcFile.getName().contains(".fixed-rg.deduped.")) {
+                            if (srcFile.getName().endsWith("ec.tsv") || srcFile.getName().endsWith(".fvcf")
+                                    || srcFile.getName().endsWith(".sub.vcf")) {
+                                continue;
+                            }
+                            File destFile = new File(necVariantCallingOutputDirectory, srcFile.getName());
+                            if (destFile.exists() && destFile.length() == 0) {
+                                destFile.delete();
+                            }
+                            if (destFile.exists() && destFile.length() > 0) {
+                                if (destFile.lastModified() > srcFile.lastModified()) {
+                                    srcFile.delete();
+                                } else {
+                                    destFile.delete();
+                                    FileUtils.moveFile(srcFile, destFile);
+                                }
+                                continue;
+                            }
+                            FileUtils.moveFile(srcFile, destFile);
+                        }
+                    }
+
+                    for (File srcFile : necOutputDirectory.listFiles()) {
+                        if (srcFile.getName().contains(".fixed-rg.deduped.")) {
+                            if (srcFile.getName().endsWith("ec.tsv") || srcFile.getName().endsWith(".fvcf")
+                                    || srcFile.getName().endsWith(".sub.vcf")) {
+                                File destFile = new File(necIDCheckOutputDirectory, srcFile.getName());
+                                if (destFile.exists() && destFile.length() == 0) {
+                                    destFile.delete();
+                                }
+                                if (destFile.exists() && destFile.length() > 0) {
+                                    if (destFile.lastModified() > srcFile.lastModified()) {
+                                        srcFile.delete();
+                                    } else {
+                                        destFile.delete();
+                                        FileUtils.moveFile(srcFile, destFile);
+                                    }
+                                    continue;
+                                }
+                                FileUtils.moveFile(srcFile, destFile);
+                            }
+                        }
+                    }
+
                 }
 
                 Set<FileData> toRemove = new HashSet<FileData>();
