@@ -20,7 +20,7 @@ import edu.unc.mapseq.dao.SampleDAO;
 import edu.unc.mapseq.dao.model.FileData;
 import edu.unc.mapseq.dao.model.Sample;
 
-@Command(scope = "nec-symlink", name = "fix-workflow-files", description = "Fix workflow files")
+@Command(scope = "jdr-scratch", name = "fix-nec-files", description = "Fix NEC files")
 public class FixNECFilesAction extends AbstractAction {
 
     private final Logger logger = LoggerFactory.getLogger(FixNECFilesAction.class);
