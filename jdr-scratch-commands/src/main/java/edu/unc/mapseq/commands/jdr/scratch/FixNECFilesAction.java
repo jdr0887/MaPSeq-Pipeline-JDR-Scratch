@@ -169,7 +169,8 @@ public class FixNECFilesAction extends AbstractAction {
                 }
 
                 // the rest are unmanaged, so no need to update FileData paths
-                if (necOutputDirectory != null && necOutputDirectory.listFiles().length > 0) {
+                
+                if (necOutputDirectory.listFiles() != null && necOutputDirectory.listFiles().length > 0) {
 
                     for (File srcFile : necOutputDirectory.listFiles()) {
                         if (srcFile.getName().endsWith(".fixed-rg.bam") || srcFile.getName().endsWith(".fixed-rg.bai")
