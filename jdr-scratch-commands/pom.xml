@@ -3,13 +3,13 @@
   <parent>
     <groupId>edu.unc.mapseq.pipelines</groupId>
     <artifactId>jdr-scratch</artifactId>
-    <version>0.0.23-SNAPSHOT</version>
+    <version>0.0.23</version>
   </parent>
   <name>MaPSeq :: Pipelines :: JDR Scratch :: Commands</name>
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.unc.mapseq.pipelines.jdr-scratch</groupId>
   <artifactId>jdr-scratch-commands</artifactId>
-  <version>0.0.23-SNAPSHOT</version>
+  <version>0.0.23</version>
   <packaging>bundle</packaging>
   <dependencies>
     <dependency>
