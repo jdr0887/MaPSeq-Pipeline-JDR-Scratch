@@ -97,6 +97,9 @@ public class FixNECFilesAction extends AbstractAction {
                         if (fd.getName().endsWith(".fixed-rg.bam") || fd.getName().endsWith(".fixed-rg.bai")
                                 || fd.getName().endsWith(".fastqc.zip") || fd.getName().endsWith(".vcf.hdr")) {
                             File destFile = new File(necAlignmentOutputDirectory, srcFile.getName());
+                            if (destFile.exists() && destFile.length() == 0) {
+                                destFile.delete();
+                            }
                             if (destFile.exists() && destFile.length() > 0) {
                                 if (destFile.lastModified() > srcFile.lastModified()) {
                                     srcFile.delete();
@@ -119,6 +122,9 @@ public class FixNECFilesAction extends AbstractAction {
                                 continue;
                             }
                             File destFile = new File(necVariantCallingOutputDirectory, srcFile.getName());
+                            if (destFile.exists() && destFile.length() == 0) {
+                                destFile.delete();
+                            }
                             if (destFile.exists() && destFile.length() > 0) {
                                 if (destFile.lastModified() > srcFile.lastModified()) {
                                     srcFile.delete();
@@ -139,6 +145,9 @@ public class FixNECFilesAction extends AbstractAction {
                             if (fd.getName().endsWith("ec.tsv") || fd.getName().endsWith(".fvcf")
                                     || fd.getName().endsWith(".sub.vcf")) {
                                 File destFile = new File(necIDCheckOutputDirectory, srcFile.getName());
+                                if (destFile.exists() && destFile.length() == 0) {
+                                    destFile.delete();
+                                }
                                 if (destFile.exists() && destFile.length() > 0) {
                                     if (destFile.lastModified() > srcFile.lastModified()) {
                                         srcFile.delete();
@@ -163,6 +172,9 @@ public class FixNECFilesAction extends AbstractAction {
                     if (srcFile.getName().endsWith(".fixed-rg.bam") || srcFile.getName().endsWith(".fixed-rg.bai")
                             || srcFile.getName().endsWith(".fastqc.zip") || srcFile.getName().endsWith(".vcf.hdr")) {
                         File destFile = new File(necAlignmentOutputDirectory, srcFile.getName());
+                        if (destFile.exists() && destFile.length() == 0) {
+                            destFile.delete();
+                        }
                         if (destFile.exists() && destFile.length() > 0) {
                             if (destFile.lastModified() > srcFile.lastModified()) {
                                 srcFile.delete();
@@ -184,6 +196,10 @@ public class FixNECFilesAction extends AbstractAction {
                         }
 
                         File destFile = new File(necVariantCallingOutputDirectory, srcFile.getName());
+                        if (destFile.exists() && destFile.length() == 0) {
+                            destFile.delete();
+                        }
+                        
                         if (destFile.exists() && destFile.length() > 0) {
                             if (destFile.lastModified() > srcFile.lastModified()) {
                                 srcFile.delete();
@@ -204,6 +220,9 @@ public class FixNECFilesAction extends AbstractAction {
                             continue;
                         }
                         File destFile = new File(necVariantCallingOutputDirectory, srcFile.getName());
+                        if (destFile.exists() && destFile.length() == 0) {
+                            destFile.delete();
+                        }
                         if (destFile.exists() && destFile.length() > 0) {
                             if (destFile.lastModified() > srcFile.lastModified()) {
                                 srcFile.delete();
@@ -222,6 +241,9 @@ public class FixNECFilesAction extends AbstractAction {
                         if (srcFile.getName().endsWith("ec.tsv") || srcFile.getName().endsWith(".fvcf")
                                 || srcFile.getName().endsWith(".sub.vcf")) {
                             File destFile = new File(necIDCheckOutputDirectory, srcFile.getName());
+                            if (destFile.exists() && destFile.length() == 0) {
+                                destFile.delete();
+                            }
                             if (destFile.exists() && destFile.length() > 0) {
                                 if (destFile.lastModified() > srcFile.lastModified()) {
                                     srcFile.delete();
