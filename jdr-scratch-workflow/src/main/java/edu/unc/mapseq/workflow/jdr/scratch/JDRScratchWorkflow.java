@@ -98,8 +98,8 @@ public class JDRScratchWorkflow extends AbstractSampleWorkflow {
             try {
 
                 // new job
-                CondorJobBuilder builder = WorkflowJobFactory.createJob(++count, FastQCCLI.class, attempt).siteName(
-                        siteName);
+                CondorJobBuilder builder = WorkflowJobFactory.createJob(++count, FastQCCLI.class, attempt.getId())
+                        .siteName(siteName);
                 File fastqcR1Output = new File(outputDirectory, r1FastqRootName + ".fastqc.zip");
                 builder.addArgument(FastQCCLI.INPUT, r1FastqFile.getAbsolutePath())
                         .addArgument(FastQCCLI.OUTPUT, fastqcR1Output.getAbsolutePath())
@@ -109,7 +109,7 @@ public class JDRScratchWorkflow extends AbstractSampleWorkflow {
                 graph.addVertex(fastQCR1Job);
 
                 // new job
-                builder = WorkflowJobFactory.createJob(++count, BWAAlignCLI.class, attempt).siteName(siteName)
+                builder = WorkflowJobFactory.createJob(++count, BWAAlignCLI.class, attempt.getId()).siteName(siteName)
                         .numberOfProcessors(4);
                 File saiR1OutFile = new File(outputDirectory, r1FastqRootName + ".sai");
                 builder.addArgument(BWAAlignCLI.THREADS, "4")
@@ -122,7 +122,7 @@ public class JDRScratchWorkflow extends AbstractSampleWorkflow {
                 graph.addEdge(fastQCR1Job, bwaAlignR1Job);
 
                 // new job
-                builder = WorkflowJobFactory.createJob(++count, FastQCCLI.class, attempt).siteName(siteName);
+                builder = WorkflowJobFactory.createJob(++count, FastQCCLI.class, attempt.getId()).siteName(siteName);
                 File fastqcR2Output = new File(outputDirectory, r2FastqRootName + ".fastqc.zip");
                 builder.addArgument(FastQCCLI.INPUT, r2FastqFile.getAbsolutePath())
                         .addArgument(FastQCCLI.OUTPUT, fastqcR2Output.getAbsolutePath())
@@ -132,7 +132,7 @@ public class JDRScratchWorkflow extends AbstractSampleWorkflow {
                 graph.addVertex(fastQCR2Job);
 
                 // new job
-                builder = WorkflowJobFactory.createJob(++count, BWAAlignCLI.class, attempt).siteName(siteName)
+                builder = WorkflowJobFactory.createJob(++count, BWAAlignCLI.class, attempt.getId()).siteName(siteName)
                         .numberOfProcessors(4);
                 File saiR2OutFile = new File(outputDirectory, r2FastqRootName + ".sai");
                 builder.addArgument(BWAAlignCLI.THREADS, "4")
@@ -145,7 +145,8 @@ public class JDRScratchWorkflow extends AbstractSampleWorkflow {
                 graph.addEdge(fastQCR2Job, bwaAlignR2Job);
 
                 // new job
-                builder = WorkflowJobFactory.createJob(++count, BWASAMPairedEndCLI.class, attempt).siteName(siteName);
+                builder = WorkflowJobFactory.createJob(++count, BWASAMPairedEndCLI.class, attempt.getId()).siteName(
+                        siteName);
                 File bwaSAMPairedEndOutFile = new File(outputDirectory, fastqLaneRootName + ".sam");
                 builder.addArgument(BWASAMPairedEndCLI.FASTADB, referenceSequence)
                         .addArgument(BWASAMPairedEndCLI.FASTQ1, r1FastqFile.getAbsolutePath())
@@ -160,7 +161,7 @@ public class JDRScratchWorkflow extends AbstractSampleWorkflow {
                 graph.addEdge(bwaAlignR2Job, bwaSAMPairedEndJob);
 
                 // new job
-                builder = WorkflowJobFactory.createJob(++count, PicardAddOrReplaceReadGroupsCLI.class, attempt)
+                builder = WorkflowJobFactory.createJob(++count, PicardAddOrReplaceReadGroupsCLI.class, attempt.getId())
                         .siteName(siteName);
                 File fixRGOutput = new File(outputDirectory, bwaSAMPairedEndOutFile.getName().replace(".sam",
                         ".fixed-rg.bam"));
@@ -183,7 +184,8 @@ public class JDRScratchWorkflow extends AbstractSampleWorkflow {
                 graph.addEdge(bwaSAMPairedEndJob, picardAddOrReplaceReadGroupsJob);
 
                 // new job
-                builder = WorkflowJobFactory.createJob(++count, SAMToolsIndexCLI.class, attempt).siteName(siteName);
+                builder = WorkflowJobFactory.createJob(++count, SAMToolsIndexCLI.class, attempt.getId()).siteName(
+                        siteName);
                 File picardAddOrReplaceReadGroupsIndexOut = new File(outputDirectory, fixRGOutput.getName().replace(
                         ".bam", ".bai"));
                 builder.addArgument(SAMToolsIndexCLI.INPUT, fixRGOutput.getAbsolutePath()).addArgument(
