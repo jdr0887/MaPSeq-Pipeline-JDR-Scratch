@@ -83,6 +83,8 @@ public class FixNECFilesAction extends AbstractAction {
                     necIDCheckOutputDirectory.mkdirs();
                 }
 
+                Set<FileData> toRemove = new HashSet<FileData>();
+
                 // work through managed files first
                 for (FileData fd : sampleFileDatas) {
 
@@ -90,6 +92,7 @@ public class FixNECFilesAction extends AbstractAction {
 
                     if (!srcFile.exists()) {
                         logger.error("file doesn't exist: {}", srcFile.getAbsolutePath());
+                        toRemove.add(fd);
                         continue;
                     }
 
@@ -166,6 +169,13 @@ public class FixNECFilesAction extends AbstractAction {
 
                 }
 
+                if (toRemove != null && !toRemove.isEmpty()) {
+                    for (FileData fd : toRemove) {
+                        sampleFileDatas.remove(fd);
+                    }
+                    sampleDAO.save(sample);
+                }
+
                 // the rest are unmanaged, so no need to update FileData paths
 
                 for (File srcFile : necOutputDirectory.listFiles()) {
@@ -199,7 +209,7 @@ public class FixNECFilesAction extends AbstractAction {
                         if (destFile.exists() && destFile.length() == 0) {
                             destFile.delete();
                         }
-                        
+
                         if (destFile.exists() && destFile.length() > 0) {
                             if (destFile.lastModified() > srcFile.lastModified()) {
                                 srcFile.delete();
