@@ -104,6 +104,8 @@ public class ScratchAction extends AbstractAction {
                     }
 
                 }
+                
+                FileUtils.deleteDirectory(necOutputDirectory);
 
             } catch (MaPSeqDAOException | IOException e) {
                 e.printStackTrace();
